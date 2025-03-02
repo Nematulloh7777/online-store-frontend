@@ -1,0 +1,4 @@
+.wrapper {
+    @apply bg-white dark:bg-[#0f172a] min-h-screen xl:min-h-min xl:rounded-[25px]
+            xl:mb-10 xl:w-[85%] xl:m-auto xl:mt-14 xl:shadow-lg xl:shadow-white/75;
+}
