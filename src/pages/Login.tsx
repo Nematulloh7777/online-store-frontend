@@ -22,7 +22,7 @@ const Login: FC = () => {
         register,
         handleSubmit,
         setError,
-        formState: { errors, isValid },
+        formState: { errors, },
     } = useForm<IAuthParams>({
         defaultValues: {
             email: '',
@@ -69,7 +69,9 @@ const Login: FC = () => {
                     <h1 className="text-xl bg-clip-text text-transparent bg-gradient-to-r from-[#0093E9] to-[#2cc4b2] dark:text-white font-bold xl:text-2xl text-center">
                         Войти
                     </h1>
-                    {error?.message && <p className='text-rose-500 text-center mt-0 pt-0'>{error?.message}</p>}
+                    {error && typeof error === "object" && "message" in error && (
+                        <p className='text-rose-500 text-center mt-0 pt-0'>{error.message}</p>
+                    )}
                     
                     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)} >
                         <div>

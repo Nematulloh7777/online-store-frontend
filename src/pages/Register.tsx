@@ -27,7 +27,7 @@ const Register: FC = () => {
         register,
         handleSubmit,
         setError,
-        formState: { errors, isValid },
+        formState: { errors, },
     } = useForm<RegisterFormInputs>({
         defaultValues: {
             fullName: '',
@@ -76,7 +76,9 @@ const Register: FC = () => {
                         Регистрация
                     </h1>
 
-                    {error?.message && <p className='text-rose-500 text-center mt-0 pt-0'>{error?.message}</p>}
+                    {error && typeof error === "object" && "message" in error && (
+                        <p className='text-rose-500 text-center mt-0 pt-0'>{error.message}</p>
+                    )}
 
                     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
                         <div>

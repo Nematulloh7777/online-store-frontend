@@ -50,7 +50,7 @@ const CreateEditProduct: FC = () => {
             if (isEditing) {
                 await fetchUpdateProduct({ id, ...fields }).unwrap();
             } else {
-                const res = await fetchCreateProduct(fields).unwrap();
+                const res = await fetchCreateProduct(fields).unwrap()
                 setProductId(res._id)
             }
 

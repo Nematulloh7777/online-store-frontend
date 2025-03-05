@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { IProduct } from '../../../types/product';
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_API_URL,
+    baseUrl: import.meta.env.VITE_API_URL,
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');
       if (token) {
@@ -17,7 +17,7 @@ export const apiSlice = createApi({
   baseQuery,
   tagTypes: ['Favorites', 'Products',],
   endpoints: (builder) => ({
-    fetchProducts: builder.query<IProduct[], Record<string, any>>({
+    fetchProducts: builder.query<any, Record<string, any>>({
       query: (params) => ({
         url: '/api/items',
         params,
@@ -36,7 +36,7 @@ export const apiSlice = createApi({
         }),
         invalidatesTags: ['Favorites'],
     }),
-    fetchCreateProduct: builder.mutation<void, any>({
+    fetchCreateProduct: builder.mutation<any, any>({
       query: (fields) => ({
         url: '/api/items',
         method: 'POST',

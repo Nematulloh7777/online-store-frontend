@@ -180,7 +180,10 @@ const Home: FC = () => {
                         items={product}
                         isLoading={isLoading}
                         error={isError}
-                        errorText={error?.message}
+                        errorText={typeof error === 'object' && 'message' in error 
+                            ? String(error.message) 
+                            : undefined
+                        }
                         text={debouncedQuery}
                     />
             </InfiniteScroll>

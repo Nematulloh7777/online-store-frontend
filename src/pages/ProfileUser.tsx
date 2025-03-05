@@ -24,7 +24,7 @@ const ProfileUser: FC = () => {
         register,
         handleSubmit,
         setError,
-        formState: { errors, isValid },
+        formState: { errors, },
         getValues,
         watch,
     } = useForm({
@@ -47,8 +47,8 @@ const ProfileUser: FC = () => {
     const emailError = errors['email']?.message
     const passwordError = errors['password']?.message
 
-    const onSubmit = (values) => {
-        const updates = {}
+    const onSubmit = () => {
+        const updates: Record<string, any> = {}
         const currentValues = getValues()
 
         if (currentValues.fullName !== data?.fullName) {

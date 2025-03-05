@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import Theme from '../UI/Theme/Theme';
 import { useAppSelector } from '../../hooks/hooksRedux';
@@ -14,7 +14,7 @@ const Header: FC<HeaderProps> = ({drawerOpen}) => {
     const [isSticky, setIsSticky] = useState(false)
     const navigate = useNavigate()
     const {items, totalPrice} = useAppSelector(state => state.cart)
-    const [isMobileModalOpen, setIsMobileModalOpen] = useState(false)
+    // const [isMobileModalOpen, setIsMobileModalOpen] = useState(false)
 
     const isAuth = useAppSelector(selectIsAuth)
 
