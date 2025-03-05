@@ -62,7 +62,7 @@ const DetailsCard: FC = () => {
                 <>
                     <div className="flex items-center gap-5 mb-5 xl:mb-10" >
                         <ArrowLeft onClick={() => navigate(-1)} className="text-slate-400 cursor-pointer transition hover:-translate-x-1 hover:text-black dark:hover:text-slate-500 dark:text-white" size={32} />
-                        <h2 className="text-xl xl:text-2xl font-bold dark:text-white">
+                        <h2 className="text-lg xl:text-2xl font-bold dark:text-white">
                             Подробности о товара 
                         </h2>
 

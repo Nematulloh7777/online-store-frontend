@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { House, TextSearch, ShoppingCart, User, Heart } from 'lucide-react';
+import { House, ShoppingCart, User, Heart, CirclePlus } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/hooksRedux';
 import MenuUser from '../Header/MenuUser';
@@ -11,7 +11,7 @@ interface MobileHeadeProps {
 
 const MobileHeader: FC<MobileHeadeProps> = ({toggleDrawer}) => {
     const {items} = useAppSelector(state => state.cart)
-    const {data} =  useAppSelector(state => state.auth)
+    const {data} = useAppSelector(state => state.auth)
     const isAuth = useAppSelector(selectIsAuth)
     
     return (
@@ -29,7 +29,7 @@ const MobileHeader: FC<MobileHeadeProps> = ({toggleDrawer}) => {
                     </button>
                 </NavLink>
 
-                <NavLink
+                {/* <NavLink
                     to="/catalog"
                     className={({ isActive, isPending }) =>
                         isPending ? "" : isActive ? "text-sky-500" : "text-slate-500 hover:text-slate-600"
@@ -39,7 +39,7 @@ const MobileHeader: FC<MobileHeadeProps> = ({toggleDrawer}) => {
                         <TextSearch className='w-6 h-6' />
                         <span className='text-xs mt-2'>Каталог</span>
                     </button>
-                </NavLink>
+                </NavLink> */}
 
                 <button onClick={toggleDrawer} className='flex flex-col items-center relative'>
 
@@ -64,6 +64,18 @@ const MobileHeader: FC<MobileHeadeProps> = ({toggleDrawer}) => {
                 </NavLink> */}
 
                 <NavLink
+                    to="/create-product"
+                    className={({ isActive, isPending }) =>
+                        isPending ? "" : isActive ? "text-sky-500" : "text-slate-500 hover:text-slate-600"
+                    }
+                >
+                    <button className='flex flex-col items-center'>
+                        <CirclePlus className='w-6 h-6' />
+                        <span className='text-xs mt-2'>Создать</span>
+                    </button>
+                </NavLink>
+
+                <NavLink
                     to="/favorites"
                     className={({ isActive, isPending }) =>
                         isPending ? "" : isActive ? "text-sky-500" : "text-slate-500 hover:text-slate-600"
@@ -72,7 +84,7 @@ const MobileHeader: FC<MobileHeadeProps> = ({toggleDrawer}) => {
 
                     <button className='flex flex-col items-center relative'>
                         <Heart className='w-6 h-6' />
-                        {data?.favorites?.length && (
+                        {(data?.favorites?.length ?? 0) > 0 && (
                             <span className="absolute -top-2 -right-1.5 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                                 {data?.favorites.length}
                             </span>
