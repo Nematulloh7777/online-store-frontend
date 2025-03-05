@@ -72,7 +72,7 @@ const MobileHeader: FC<MobileHeadeProps> = ({toggleDrawer}) => {
 
                     <button className='flex flex-col items-center relative'>
                         <Heart className='w-6 h-6' />
-                        {data?.favorites.length > 0 && (
+                        {data?.favorites?.length ?? (
                             <span className="absolute -top-2 -right-1.5 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                                 {data?.favorites.length}
                             </span>

@@ -38,7 +38,7 @@ const MenuUser: FC = () => {
                 {data?.avatarUrl ? (
                     <img
                         className="w-10 h-10 outline outline-2 outline-offset-2 outline-slate-400 rounded-full"
-                        src={`http://localhost:5000${data?.avatarUrl}`}
+                        src={data?.avatarUrl}
                         alt="avatar"
                     />
                 ) : (

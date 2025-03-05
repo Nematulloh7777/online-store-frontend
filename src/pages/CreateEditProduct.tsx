@@ -6,7 +6,6 @@ import { ArrowLeft } from 'lucide-react';
 import apiClient from '../axios';
 import { useFetchCreateProductMutation, useFetchUpdateProductMutation, useGetProductByIdQuery } from '../redux/slices/api/apiProductsSlice';
 import Loader from '../components/UI/Loader/Loader';
-import { IProduct } from '../types/product';
 
 const CreateEditProduct: FC = () => {
     const {id} = useParams()
@@ -65,10 +64,7 @@ const CreateEditProduct: FC = () => {
 
     const inputFileRef = useRef<HTMLInputElement>(null)
 
-    const handleChangeFile = async (
-        event: ChangeEvent<HTMLInputElement>, 
-        category = 'products_img'
-    ) => {
+    const handleChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
         try {
             const files = event.target.files
 
@@ -78,9 +74,7 @@ const CreateEditProduct: FC = () => {
             }
 
             const formData = new FormData()
-            const file = files[0]
-            formData.append('image', file)
-            formData.append('category', category)
+            formData.append('image', files[0])
 
             const { data } = await apiClient.post('/api/upload', formData)
             setImageUrl(data.url)
@@ -90,9 +84,22 @@ const CreateEditProduct: FC = () => {
     }
 
     const onClickRemoveImage = async () => {
-        const filename = imageUrl.split('/').pop()
-        await apiClient.delete(`/api/upload/products_img/${filename}`)
-        setImageUrl('')
+        if (!imageUrl) return
+        try {
+            const publicId = imageUrl.split('/').slice(-2).join('/').split('.')[0];
+    
+            if (!publicId) {
+                console.warn("Не удалось получить public_id");
+                return;
+            }
+    
+            await apiClient.delete(`/api/upload`, {
+                data: {public_id: publicId},
+            });
+            setImageUrl('');
+        } catch (err) {
+            console.warn('Ошибка при удалении файла', err);
+        }
     }
 
     React.useEffect(() => {
@@ -127,7 +134,7 @@ const CreateEditProduct: FC = () => {
                     {imageUrl && (
                         <img
                             className="mt-2 mb-1 w-[180px] "
-                            src={`http://localhost:5000${imageUrl}`}
+                            src={imageUrl}
                             alt="Изображения товара"
                         />
                     )}

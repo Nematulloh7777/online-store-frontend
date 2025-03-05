@@ -15,7 +15,7 @@ const CartItemList: FC = () => {
                     <div className='dark:bg-gray-300 rounded p-1'>
                         <img 
                             className="w-16 h-16 mix-blend-multiply object-contain object-center" 
-                            src={`http://localhost:5000${item.imageUrl}`} 
+                            src={item.imageUrl} 
                             alt="items" 
                         />
                     </div>

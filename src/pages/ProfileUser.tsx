@@ -82,10 +82,7 @@ const ProfileUser: FC = () => {
 
     const inputFileRef = useRef<HTMLInputElement>(null)
 
-    const handleChangeFile = async (
-        event: ChangeEvent<HTMLInputElement>, 
-        category = 'user_img'
-    ) => {
+    const handleChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
         try {
             const files = event.target.files
 
@@ -95,9 +92,7 @@ const ProfileUser: FC = () => {
             }
 
             const formData = new FormData()
-            const file = files[0]
-            formData.append('image', file)
-            formData.append('category', category)
+            formData.append('image', files[0])
 
             const { data } = await apiClient.post('/api/upload', formData)
             setImageUrl(data.url)
@@ -107,9 +102,22 @@ const ProfileUser: FC = () => {
     }
 
     const onClickRemoveImage = async () => {
-        const filename = imageUrl.split('/').pop()
-        await apiClient.delete(`/api/upload/user_img/${filename}`)
-        setImageUrl('')
+        if (!imageUrl) return
+        try {
+            const publicId = imageUrl.split('/').slice(-2).join('/').split('.')[0];
+    
+            if (!publicId) {
+                console.warn("Не удалось получить public_id");
+                return;
+            }
+    
+            await apiClient.delete(`/api/upload`, {
+                data: {public_id: publicId},
+            });
+            setImageUrl('');
+        } catch (err) {
+            console.warn('Ошибка при удалении файла', err);
+        }
     }
 
     return (
@@ -137,7 +145,7 @@ const ProfileUser: FC = () => {
                     {imageUrl ? (
                         <img
                             className="hover:brightness-[0.8] z-10 mt-1 mb-1 hover:shadow-slate-400 cursor-pointer transition duration-300 w-[80px] h-[80px] rounded-full"
-                            src={`http://localhost:5000${imageUrl}`}
+                            src={imageUrl}
                             alt="avatar"
                         />
                     ) : (

@@ -81,7 +81,7 @@ const Card: FC<CardProps> = ({id, imageUrl, title, price, text, isFavorite, onTo
             >
                 <img 
                     className='w-full h-full object-contain object-center' 
-                    src={`http://localhost:5000${imageUrl}`}
+                    src={imageUrl}
                     alt="в этом товаре нету изображения"
                 />
             </div>

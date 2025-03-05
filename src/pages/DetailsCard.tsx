@@ -99,7 +99,7 @@ const DetailsCard: FC = () => {
                         <div className='dark:bg-gray-200 flex justify-center rounded-lg xl:p-2 xl:m-0 p-10 mr-10 ml-10 h-full'>
                             <img 
                                 className='xl:max-w-[250px]  mix-blend-multiply'
-                                src={`http://localhost:5000${data?.imageUrl}`}
+                                src={data?.imageUrl}
                                 alt="Product Image"
                             />
                         </div>
