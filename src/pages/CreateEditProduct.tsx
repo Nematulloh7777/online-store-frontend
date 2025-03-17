@@ -104,7 +104,7 @@ const CreateEditProduct: FC = () => {
 
     React.useEffect(() => {
         if (!window.localStorage.getItem('token') && !isAuth) {
-            navigate('/')
+            navigate('/login')
         }
     }, [isAuth, navigate])
     
